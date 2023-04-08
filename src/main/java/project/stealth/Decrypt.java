@@ -17,6 +17,28 @@ public class Decrypt {
      */
 
     /*
+    Caesar Cipher
+    Método faz a decriptação da caesar cipher
+    @param String encryptedText, int shift
+    @return String
+     */
+    public String caesarCipher(String encryptedText, int shift){
+        var decrypted = new StringBuilder();
+        encryptedText.toLowerCase();
+
+        for (char letter : encryptedText.toCharArray()) {
+            //Verifica se é uma letra do Alfabeto
+            if (Character.isLetter(letter)) {
+                // adiciona o deslocamento (shift)
+                letter = (char) ('a' + (letter - 'a' - shift) % 26);
+            }
+            //Concatena ou junta as letras
+            decrypted.append(letter);
+        }
+        //retorna a String completa
+        return decrypted.toString();
+    }
+    /*
     Decrypt One Time Pad Cipher
     Método é responsável por fazer a Decriptação da One Time Pad Cipher
     @param String encryptedText, String key
@@ -65,7 +87,6 @@ public class Decrypt {
     @param String encryptedText, int[][] key
     @return String
      */
-
     public String hillCipher(String encryptedText, int[][] key){
         // Converte o texto encriptado em uma matriz
         int n = encryptedText.length() / 2;
@@ -88,6 +109,7 @@ public class Decrypt {
         if (invertDeterminat == -1) {
             throw new IllegalArgumentException("Key matrix is not invertible");
         }
+        //inverte a matriz
         int[][] invertKey = new int[2][2];
         invertKey[0][0] = key[1][1] * invertDeterminat % 26;
         invertKey[0][1] = -key[0][1] * invertDeterminat % 26;
@@ -105,7 +127,7 @@ public class Decrypt {
             }
         }
 
-        // converte o resultado em uma string
+        //converte o resultado em uma string
         StringBuilder decrypted = new StringBuilder();
         for (int i = 0; i < n; i++) {
             decrypted.append((char) (decryptedTextMatrix[0][i] + 'A'));

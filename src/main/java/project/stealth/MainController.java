@@ -5,10 +5,10 @@ public class MainController {
     public Encrypt encrypt = new Encrypt();
     public Decrypt decrypt = new Decrypt();
     public String testingEncrypt(){
-        testingEncrypt = encrypt.xorCipher("i love sarah", "juggernaut");
+        testingEncrypt = encrypt.caesarCipher("i love sarah santos", 7);
         return testingEncrypt;
     }
     public String testingDecrypt(){
-        return decrypt.xorCipher(testingEncrypt, "juggernaut");
+        return decrypt.caesarCipher(testingEncrypt, 7);
     }
 }

@@ -27,20 +27,14 @@ public class Encrypt {
      */
     public String caesarCipher(String encryptText, int shift){
         var encrypted = new StringBuilder();
+        encryptText.toLowerCase();
 
-        for (int i = 0; i < encryptText.length(); i++) {
-            char letter = encryptText.charAt(i);
+        for (char letter : encryptText.toCharArray()) {
             //Verifica se é uma letra do Alfabeto
             if (Character.isLetter(letter)) {
-                //Verifica se a Letra é Maiuscula
-                if (Character.isUpperCase(letter)) {
-                    // adiciona o deslocamento (shift)
-                    letter = (char) ('A' + (letter - 'A' + shift) % 26);
-                } else {
-                    // adiciona o deslocamento (shift)
-                    letter = (char) ('a' + (letter - 'a' + shift) % 26);
+                // adiciona o deslocamento (shift)
+                letter = (char) ('a' + (letter - 'a' + shift) % 26);
                 }
-            }
             //Concatena ou junta as letras
             encrypted.append(letter);
         }

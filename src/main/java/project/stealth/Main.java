@@ -24,6 +24,7 @@ public class Main /*extends Application*/ {
     public static void main(String[] args) {
         //launch();
         var controller = new MainController();
-        System.out.println(controller.testing());
+        System.out.println(controller.testingEncrypt());
+        System.out.println(controller.testingDecrypt());
     }
 }

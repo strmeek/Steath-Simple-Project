@@ -144,8 +144,10 @@ public class Decrypt {
             if (fenceIndex >= rail) {
                 fenceIndex = 2 * (rail - 1) - fenceIndex;
             }
-            decrypted[indexes[i]] = fence[fenceIndex].charAt(0);
-            fence[fenceIndex].deleteCharAt(0);
+            if (fence[fenceIndex].length() > 0) {
+                decrypted[indexes[i]] = fence[fenceIndex].charAt(0);
+                fence[fenceIndex].deleteCharAt(0);
+            }
         }
 
         // Retorna o texto decriptado
@@ -171,21 +173,20 @@ public class Decrypt {
                 // posiciona as letras no grid
                 grid[i][j] = keyAlphabet.charAt(index);
                 // atualiza o index;
-                index++;
+                index += 1;
             }
         }
         // cria o string builder da mensagem final
         var decrypted = new StringBuilder();
         // percorre a mensagem criptografada
-        for (int i = 0; i < encryptedText.length(); i += 2) {
+        for (int i = 0; i < encryptedText.length() - 1; i += 2) {
             char firstChar = encryptedText.charAt(i);
-            // se o primeiro caractere for um espaço, o segundo também será
-            if (firstChar == ' ') {
-                decrypted.append(' ');
-                i--; // decrementa o índice para compensar o incremento no início do loop
+            char secondChar = encryptedText.charAt(i + 1);
+            // verifica se o valor de firstChar e secondChar estão no intervalo esperado
+            if (firstChar < '1' || firstChar > '5' || secondChar < '1' || secondChar > '5') {
+                decrypted.append("?");
                 continue;
             }
-            char secondChar = encryptedText.charAt(i + 1);
             // encontra a letra correspondente à posição na matriz
             char letter = grid[firstChar - '1'][secondChar - '1'];
             // adiciona a letra descriptografada ao string builder
@@ -218,53 +219,64 @@ public class Decrypt {
     @param String encryptedText, int[][] key
     @return String
      */
-    public String hillDecipher(String encryptedText, int[][] key){
-        // Converte o texto encriptado em uma matriz
-        int n = encryptedText.length() / 2;
-        int[][] encryptedTextMatrix = new int[2][n];
-        for (int i = 0; i < n; i++) {
-            encryptedTextMatrix[0][i] = encryptedText.charAt(2*i) - 'A';
-            encryptedTextMatrix[1][i] = encryptedText.charAt(2*i+1) - 'A';
+    public String hillDecipher(String encryptedText, int[][] key) {
+        // arredonda o tamanho do texto, se for necessário
+        if (encryptedText.length() % 2 != 0) {
+            encryptedText += "$";
         }
 
-        // Acha o inverso na chave
-        int determinant = key[0][0] * key[1][1] - key[0][1] * key[1][0];
-        int invertDeterminat = -1;
-        for (int i = 0; i < 26; i++) {
-            if ((i * determinant) % 26 == 1) {
-                invertDeterminat = i;
-                break;
-            }
+        // converte o texto cifrado em uma matriz
+        int columns = encryptedText.length() / 2;
+        int[][] cipherMatrix = new int[2][columns];
+        for (int i = 0; i < columns; i++) {
+            cipherMatrix[0][i] = encryptedText.charAt(2 * i) - 'A';
+            cipherMatrix[1][i] = encryptedText.charAt(2 * i + 1) - 'A';
         }
-        //confere se a matriz chave realmente tem inversa
-        if (invertDeterminat == -1) {
-            throw new IllegalArgumentException("Key matrix is not invertible");
-        }
-        //inverte a matriz
-        int[][] invertKey = new int[2][2];
-        invertKey[0][0] = key[1][1] * invertDeterminat % 26;
-        invertKey[0][1] = -key[0][1] * invertDeterminat % 26;
-        invertKey[1][0] = -key[1][0] * invertDeterminat % 26;
-        invertKey[1][1] = key[0][0] * invertDeterminat % 26;
 
-        //percorre as matrizes e multiplica pela chave para revelar a mensagem
-        int[][] decryptedTextMatrix = new int[2][n];
-        for (int i = 0; i < n; i++) {
+        // calcula a matriz inversa da chave
+        int determinat = key[0][0] * key[1][1] - key[0][1] * key[1][0];
+        determinat = Math.floorMod(determinat, 26);
+        int[][] inverseKey = new int[2][2];
+        inverseKey[0][0] = key[1][1];
+        inverseKey[1][1] = key[0][0];
+        inverseKey[0][1] = -key[0][1];
+        inverseKey[1][0] = -key[1][0];
+        for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                for (int k = 0; k < 2; k++) {
-                    decryptedTextMatrix[j][i] += invertKey[j][k] * encryptedTextMatrix[k][i];
-                }
-                decryptedTextMatrix[j][i] = (decryptedTextMatrix[j][i] % 26 + 26) % 26;
+                inverseKey[i][j] = Math.floorMod(inverseKey[i][j] * modInverse(determinat, 26), 26);
             }
         }
 
-        //converte o resultado em uma string
-        StringBuilder decrypted = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            decrypted.append((char) (decryptedTextMatrix[0][i] + 'A'));
-            decrypted.append((char) (decryptedTextMatrix[1][i] + 'A'));
+        // decripta o texto
+        int[][] decryptedMatrix = new int[2][columns];
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < columns; j++) {
+                int sum = 0;
+                for (int k = 0; k < 2; k++) {
+                    sum += inverseKey[i][k] * cipherMatrix[k][j];
+                }
+                decryptedMatrix[i][j] = Math.floorMod(sum, 26);
+            }
         }
-        return decrypted.toString();
+
+        // converte a matriz de volta para texto
+        StringBuilder decryptedText = new StringBuilder();
+        for (int i = 0; i < columns; i++) {
+            decryptedText.append((char) (decryptedMatrix[0][i] + 'A'));
+            decryptedText.append((char) (decryptedMatrix[1][i] + 'A'));
+        }
+        return decryptedText.toString();
+    }
+
+    // método para calcular o inverso modular de um número
+    public int modInverse(int a, int m) {
+        a = Math.floorMod(a, m);
+        for (int x = 1; x < m; x++) {
+            if (Math.floorMod(a * x, m) == 1) {
+                return x;
+            }
+        }
+        throw new ArithmeticException("Inverso modular não existe.");
     }
 }
 

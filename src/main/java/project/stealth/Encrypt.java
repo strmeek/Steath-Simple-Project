@@ -221,9 +221,11 @@ public class Encrypt {
     @return String
      */
     public String hillCipher(String encryptText, int[][] key){
+        //garante que todos os caracteres são maiusculos
+        encryptText.toUpperCase();
         //arredonda o tamanho do texto, se for necessário
-        while(encryptText.length() % 2 != 0){
-            encryptText += "$";
+        if(encryptText.length() % 2 != 0){
+            encryptText += 'X';
         }
         //converte o texto em uma matriz
         int columns = encryptText.length() / 2;
@@ -256,3 +258,4 @@ public class Encrypt {
         return encrypted.toString();
     }
 }
+

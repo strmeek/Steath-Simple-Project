@@ -44,7 +44,7 @@ public class MainController {
     }
     public String testingHillEncrypt(){
         int[][] key = new int[][]{{2, 3},{3, 4}};
-        testingEncrypt = encrypt.hillCipher("SARA", key);
+        testingEncrypt = encrypt.hillCipher("SARASANTOSRIBEIROO", key);
         return testingEncrypt;
     }
     public String testingHillDecrypt(){

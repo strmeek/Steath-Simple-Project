@@ -220,42 +220,32 @@ public class Encrypt {
     @param String encryptText, int[][] key
     @return String
      */
-    public String hillCipher(String encryptText, int[][] key){
-        //garante que todos os caracteres são maiusculos
-        encryptText.toUpperCase();
-        //arredonda o tamanho do texto, se for necessário
-        if(encryptText.length() % 2 != 0){
-            encryptText += 'X';
-        }
-        //converte o texto em uma matriz
-        int columns = encryptText.length() / 2;
-        //matriz com o texto puro, não encriptado ainda
-        int[][] encryptThisMatrix = new int[2][columns];
-        for (int i = 0; i < columns; i++) {
-            encryptThisMatrix[0][i] = encryptText.charAt(2*i) - 'A';
-            encryptThisMatrix[1][i] = encryptText.charAt(2*i+1) - 'A';
-        }
-        //Matriz com o texto encriptado
-        int[][] encryptedMatrix = new int[2][columns];
-        //percorre matriz
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < columns; j++) {
-                int sum = 0;
-                for (int k = 0; k < 2; k++) {
-                    //multiplica as 2 matrizes
-                    sum += key[i][j] * encryptThisMatrix[k][j];
-                }
-                encryptedMatrix[i][j] = sum % 26;
+    public static String hillCipher(String encryptText, int[][] key) {
+        int keyLen = key.length; // dimensão da matriz chave
+        int textLen = encryptText.length();
+        int[][] encryptTextMatrix = new int[keyLen][textLen/keyLen]; // matriz do texto a ser encriptado(encryptText)
+        for (int i = 0; i < textLen; i+=keyLen) {
+            for (int j = 0; j < keyLen; j++) {
+                encryptTextMatrix[j][i/keyLen] = encryptText.charAt(i+j) - 'A';
             }
         }
-        //Convertendo de volta para texto
-        var encrypted = new StringBuilder();
-        for (int i = 0; i < columns; i++) {
-            encrypted.append((char) (encryptedMatrix[0][i] + 'A'));
-            encrypted.append((char) (encryptedMatrix[1][i] + 'A'));
+        int[][] encryptedTextMatrix = new int[keyLen][textLen/keyLen]; // matriz do encryptedText
+        for (int i = 0; i < keyLen; i++) {
+            for (int j = 0; j < textLen/keyLen; j++) {
+                int sum = 0;
+                for (int k = 0; k < keyLen; k++) {
+                    sum += key[i][k] * encryptTextMatrix[k][j];
+                }
+                encryptedTextMatrix[i][j] = sum % 26;
+            }
         }
-        //texto final
-        return encrypted.toString();
+        StringBuilder encryptedText = new StringBuilder(); // encryptedText em string
+        for (int i = 0; i < textLen/keyLen; i++) {
+            for (int j = 0; j < keyLen; j++) {
+                encryptedText.append((char)(encryptedTextMatrix[j][i] + 'A'));
+            }
+        }
+        return encryptedText.toString();
     }
 }
 

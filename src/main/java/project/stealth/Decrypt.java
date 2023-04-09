@@ -212,7 +212,6 @@ public class Decrypt {
         return decrypted.toString();
     }
 
-
     /*
     Decrypt Hill Cipher
     Método faz a Decriptação de Hill Ciphers
@@ -234,16 +233,16 @@ public class Decrypt {
         }
 
         // calcula a matriz inversa da chave
-        int determinat = key[0][0] * key[1][1] - key[0][1] * key[1][0];
-        determinat = Math.floorMod(determinat, 26);
+        int det = key[0][0] * key[1][1] - key[0][1] * key[1][0];
+        det = Math.floorMod(det, 26);
         int[][] inverseKey = new int[2][2];
         inverseKey[0][0] = key[1][1];
         inverseKey[1][1] = key[0][0];
-        inverseKey[0][1] = -key[0][1];
-        inverseKey[1][0] = -key[1][0];
+        inverseKey[0][1] = - key[0][1];
+        inverseKey[1][0] = - key[1][0];
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                inverseKey[i][j] = Math.floorMod(inverseKey[i][j] * modInverse(determinat, 26), 26);
+                inverseKey[i][j] = Math.floorMod(inverseKey[i][j] * modInverse(det, 26), 26);
             }
         }
 

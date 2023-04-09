@@ -33,7 +33,7 @@ public class Encrypt {
             //Verifica se é uma letra do Alfabeto
             if (Character.isLetter(letter)) {
                 // adiciona o deslocamento (shift)
-                letter = (char) ('a' + (letter - 'a' + shift) % 26);
+                letter = (char) ('a' + (letter - 'a' + shift + 26) % 26);
                 }
             //Concatena ou junta as letras
             encrypted.append(letter);

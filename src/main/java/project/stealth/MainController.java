@@ -9,6 +9,6 @@ public class MainController {
         return testingEncrypt;
     }
     public String testingDecrypt(){
-        return decrypt.caesarCipher(testingEncrypt, 7);
+        return decrypt.caesarDecipher(testingEncrypt, 7);
     }
 }

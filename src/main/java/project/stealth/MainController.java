@@ -21,7 +21,7 @@ public class MainController {
     }
 
     public String testingRailFenceEncrypt(){
-        testingEncrypt = encrypt.railFenceCipher("i love Sarah Santos", 3);
+        testingEncrypt = encrypt.railFenceCipher("i love sarah santos", 3);
         return testingEncrypt;
     }
     public String testingRailFenceDecrypt(){
@@ -29,11 +29,11 @@ public class MainController {
     }
 
     public String testingPolybiusSquareEncrypt(){
-        testingEncrypt = encrypt.polybiusSquareCipher("i love Sarah Santos", "quero beijos");
+        testingEncrypt = encrypt.polybiusSquareCipher("i love sarah santos", "beijos");
         return testingEncrypt;
     }
     public String testingPolybiusSquareDecrypt(){
-        return decrypt.polybiusSquareDecipher(testingEncrypt, "quero beijos");
+        return decrypt.polybiusSquareDecipher(testingEncrypt, "beijos");
     }
     public String testingOneTimePadEncrypt(){
         testingEncrypt = encrypt.oneTimePadCipher("i love my princess");

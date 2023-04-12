@@ -70,59 +70,53 @@ public class Decrypt {
     @param String encryptedText, int rail
     @return String
      */
-    public String railFenceDecipher(String encryptedText, int rail) {
-        // Cria um Array que serve como "cerca" ou limite, com o tamanho do trilho
-        StringBuilder[] fence = new StringBuilder[rail];
-        // Adiciona um objeto StringBuilder em cada espaço do Array
-        for (int i = 0; i < rail; i++) {
-            fence[i] = new StringBuilder();
+    public String railFenceDecipher(String encryptedText, int rails) {
+        // Pré-processamento da mensagem criptografada
+        encryptedText = encryptedText.toLowerCase().replaceAll("[^a-z]", "");
+
+        // Calcula o tamanho de cada trilho
+        int fenceSize = encryptedText.length() / rails;
+        // Calcula o tamanho dos trilhos que têm uma letra a mais
+        int extraLetters = encryptedText.length() % rails;
+
+        // Cria um array que serve como "cerca" ou limite, com o tamanho do trilho
+        int[] fence = new int[rails];
+        // Preenche o array com o tamanho dos trilhos
+        for (int i = 0; i < rails; i++) {
+            fence[i] = (i < extraLetters) ? (fenceSize + 1) : fenceSize;
         }
-        // Mantém controle da posição do trilho
-        int railPosition = 0;
-        // Mantém controle se o vetor muda de direção
-        boolean down = true;
-        // Percorre cada letra da mensagem
-        for (int i = 0; i < encryptedText.length(); i++) {
-            // Atribui a letra correspondente a posição i
-            char letter = encryptedText.charAt(i);
-            // Adiciona no array na posição especificada
-            fence[railPosition].append(letter);
-            // Verifica se o vetor precisa mudar de direção
-            if (railPosition == 0) {
-                down = true;
-            } else if (railPosition == rail - 1) {
-                down = false;
-            }
-            // Atualiza a posição do vetor baseado na direção atual
-            if (down) {
-                railPosition++;
-            } else {
-                railPosition--;
-            }
-        }
-        // Concatena os caracteres em uma única String
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < rail; i++) {
-            result.append(fence[i]);
-        }
-        // Cria um array para armazenar os índices da mensagem criptografada
-        int[] indices = new int[encryptedText.length()];
-        // Percorre cada trilho e adiciona os índices ao array
+
+        // Mantém controle
         int index = 0;
-        for (int i = 0; i < rail; i++) {
-            for (int j = 0; j < fence[i].length(); j++) {
-                indices[index] = i;
+        // Cria uma matriz que vai ser usada para decifrar a mensagem
+        char[][] matrix = new char[rails][fenceSize + 1];
+        // Percorre a matriz, preenchendo-a com as letras da mensagem criptografada
+        for (int i = 0; i < rails; i++) {
+            for (int j = 0; j < fence[i]; j++) {
+                matrix[i][j] = encryptedText.charAt(index++);
+            }
+        }
+
+        // Decifra a mensagem
+        StringBuilder decrypted = new StringBuilder();
+        // Mantém controle
+        index = 0;
+        // Percorre a matriz, adicionando as letras decifradas ao StringBuilder
+        for (int i = 0; i < fenceSize + 1; i++) {
+            for (int j = 0; j < rails; j++) {
+                if (i == fence[j]) {
+                    continue;
+                }
+                if (index >= encryptedText.length()){
+                    break;
+                }
+                decrypted.append(matrix[j][i]);
                 index++;
             }
         }
-        // Reorganiza os caracteres na ordem original
-        StringBuilder decipheredText = new StringBuilder();
-        for (int i = 0; i < encryptedText.length(); i++) {
-            decipheredText.append(fence[indices[i]].charAt(0));
-            fence[indices[i]].deleteCharAt(0);
-        }
-        // Retorna a mensagem descriptografada como uma String
-        return decipheredText.toString();
+
+        // Retorna a mensagem decifrada
+        return decrypted.toString();
     }
 
     /*
@@ -132,39 +126,27 @@ public class Decrypt {
     @return String
      */
     public static String polybiusSquareDecipher(String encryptedText, String key) {
-        // grade 5x5
-        char[][] grid = new char[5][5];
-        // concatena a chave com o alfabeto
-        String keyAlphabet = key + "abcdefghiklmnopqrstuvwxyz";
-        // mantem controle da posição atual
-        int index = 0;
-        // percorre a matriz
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                // posiciona as letras no grid
-                grid[i][j] = keyAlphabet.charAt(index);
-                // atualiza o index;
-                index += 1;
-            }
-        }
-        // cria o string builder da mensagem final
-        var decrypted = new StringBuilder();
-        // percorre a mensagem criptografada
+        // Matriz do alfabeto, incluindo a letra J
+        char[][] polybiusSquare = {{'A', 'B', 'C', 'D', 'E'},
+                {'F', 'G', 'H', 'I', 'J'},
+                {'K', 'L', 'M', 'N', 'O'},
+                {'P', 'Q', 'R', 'S', 'T'},
+                {'U', 'V', 'W', 'X', 'Y'},
+                {'Z', ' ', '.', ',', ';'}};
+
+        // Cria um StringBuilder para armazenar a mensagem decifrada
+        StringBuilder plaintext = new StringBuilder();
+
+        // Itera por cada par de números na mensagem cifrada
         for (int i = 0; i < encryptedText.length(); i += 2) {
-            char firstChar = encryptedText.charAt(i);
-            char secondChar = encryptedText.charAt(i + 1);
-            // verifica se o valor de firstChar e secondChar estão no intervalo esperado
-            if (firstChar < '1' || firstChar > '5' || secondChar < '1' || secondChar > '5' + '0') {
-                decrypted.append("?");
-                continue;
-            }
-            // encontra a letra correspondente à posição na matriz
-            char letter = grid[firstChar - '1'][secondChar - '1'];
-            // adiciona a letra descriptografada ao string builder
-            decrypted.append(letter);
+            int row = Character.getNumericValue(encryptedText.charAt(i)) - 1;
+            int col = Character.getNumericValue(encryptedText.charAt(i+1)) - 1;
+            // Adiciona a letra correspondente à posição decifrada à mensagem decifrada
+            plaintext.append(polybiusSquare[row][col]);
         }
-        // retorna a mensagem descriptografada
-        return decrypted.toString();
+
+        // Retorna a mensagem decifrada
+        return plaintext.toString();
     }
 
     /*

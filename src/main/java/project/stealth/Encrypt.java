@@ -131,54 +131,35 @@ public class Encrypt {
     @return String
      */
     public String polybiusSquareCipher(String encryptText, String key){
-        // Criação da matriz 5x5 com as letras do alfabeto e da chave
-        char[][] matrix = new char[5][5];
-        String keyAlphabet = key + "abcdefghiklmnopqrstuvwxyz";
-        int index = 0;
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 5; col++) {
-                matrix[row][col] = keyAlphabet.charAt(index);
-                index++;
-            }
-        }
+        // Matriz do alfabeto, incluindo a letra J
+        char[][] polybiusSquare = {{'A', 'B', 'C', 'D', 'E'},
+                {'F', 'G', 'H', 'I', 'J'},
+                {'K', 'L', 'M', 'N', 'O'},
+                {'P', 'Q', 'R', 'S', 'T'},
+                {'U', 'V', 'W', 'X', 'Y'},
+                {'Z', ' ', '.', ',', ';'}};
 
-        // Encriptação da mensagem
-        StringBuilder encrypted = new StringBuilder();
-        for (char letter : encryptText.toCharArray()) {
-            // Transforma o 'j' em 'i'
-            if (letter == 'j') {
-                letter = 'i';
-            }
-            // Encontra a posição da letra na matriz
-            int[] position = findPosition(matrix, letter);
-            // Adiciona a posição da letra encriptada ao encrypted
-            encrypted.append(position[0]).append(position[1]);
-        }
-        return encrypted.toString();
-    }
-    /*
-    Método acha a posição no grid em polybiusSquareCipher
-    @param char[][] grid, char letter
-    @return int[] position
-    */
-    private int[] findPosition(char[][] grid, char letter) {
-        //numero da posição da letra
-        int[] position = new int[2];
-        //percorre a matriz atrás da letra em questão
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                //acha a letra no grid
-                if (grid[i][j] == letter) {
-                    //salva a posição da linha
-                    position[0] = i + 1;
-                    //salva a posição da coluna
-                    position[1] = j + 1;
-                    return position;
+        // Pré-processamento da mensagem em letras maiúsculas e removendo caracteres não-alfabéticos
+        encryptText = encryptText.toUpperCase().replaceAll("[^A-Z]", "");
+
+        // Cria um StringBuilder para armazenar a mensagem cifrada
+        StringBuilder ciphertext = new StringBuilder();
+
+        // Itera por cada letra da mensagem
+        for (int i = 0; i < encryptText.length(); i++) {
+            char letter = encryptText.charAt(i);
+            // Itera por cada letra na matriz de Polybius para encontrar a posição da letra atual
+            for (int row = 0; row < polybiusSquare.length; row++) {
+                for (int col = 0; col < polybiusSquare[row].length; col++) {
+                    if (polybiusSquare[row][col] == letter) {
+                        // Adiciona a posição cifrada (linha e coluna) à mensagem cifrada
+                        ciphertext.append(row+1).append(col+1);
+                    }
                 }
             }
         }
-        //retorna a posição
-        return position;
+        // Retorna a mensagem cifrada
+        return ciphertext.toString();
     }
     /*
     One Time Pad Cipher

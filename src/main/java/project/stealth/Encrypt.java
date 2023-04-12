@@ -8,10 +8,9 @@ public class Encrypt {
     Encriptação, nesse programa contém os seguintes:
     1- Caesar cipher
     2- XOR Cipher
-    3- Rail Fence Cipher
-    4- Polybius Square Cipher
-    5- One Time Pad Cipher
-    6- Hill Cipher
+    3- Polybius Square Cipher
+    4- One Time Pad Cipher
+    5- Hill Cipher
      */
 
     /*
@@ -70,58 +69,6 @@ public class Encrypt {
         return encrypted.toString();
     }
 
-    /*
-    Rail Fence Cipher
-    Método faz a encriptação baseado na Rail Fence Cipher que
-    move cada letra da mensagem em zigue-zague de acordo com um numero especificado
-    chamado de "trilho"
-    @param String encryptText, int rail
-    @return String
-     */
-    public String railFenceCipher(String encryptText, int rail){
-        // Pré-processamento da mensagem original
-        encryptText.toLowerCase().replaceAll("[^a-z]", "");
-        //Cria um Array que serve como "cerca" ou limite, com o tamanho do trilho
-        StringBuilder[] fence = new StringBuilder[rail];
-        //adiciona um objeto StringBuilder em cada espaço do Array
-        for(int i = 0; i<rail; i++){
-            fence[i] = new StringBuilder();
-        }
-        //mantem controle da posição do trilho
-        int railPosition = 0;
-        //mantem controle se o vetor muda de direção
-        boolean down = true;
-        //percorre cada letra da mensagem
-        for (int i = 0; i < encryptText.length(); i++) {
-            //atribui a letra correspondente a posição i
-            char letter = encryptText.charAt(i);
-            //adiciona no array na posição especificada
-            fence[railPosition].append(letter);
-
-            //adiciona ou diminui posições, para fazer o zigue-zague
-            if (down){
-                railPosition++;
-            } else {
-                railPosition--;
-            }
-
-            //faz o "Zigue-Zague" das letras mudando a variavel down
-            if(railPosition == rail - 1){
-                down = false;
-            } else if (railPosition == 0) {
-                down = true;
-            }
-        }
-        //hora de juntar os resultados das operações em uma string somente
-        var encrypted = new StringBuilder();
-        //percorre o Array de StringBuilders
-        for (int i = 0; i < rail; i++) {
-            //concatena em uma string somente
-            encrypted.append(fence[i].toString());
-        }
-        //retorna o texto encriptado
-        return encrypted.toString();
-    }
     /*
     Polybius Square Cipher
     Método faz a encriptação utilizando a Polybius Square Cipher que usa

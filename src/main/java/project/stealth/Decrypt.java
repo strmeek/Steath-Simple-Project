@@ -6,10 +6,9 @@ public class Decrypt {
     Decriptação, nesse programa contém os seguintes:
     1- Caesar cipher
     2- XOR Cipher
-    3- Rail Fence Cipher
-    4- Polybius Square Cipher
-    5- One Time Pad Cipher
-    6- Hill Cipher
+    3- Polybius Square Cipher
+    4- One Time Pad Cipher
+    5- Hill Cipher
      */
 
     /*
@@ -60,62 +59,6 @@ public class Decrypt {
             decrypted.append(letter);
         }
         //retorna a String completa
-        return decrypted.toString();
-    }
-
-    /*
-    Rail Fence Cipher
-    Método é responsavel por revelar a mensagem escondida em uma
-    Rail Fence Cipher
-    @param String encryptedText, int rail
-    @return String
-     */
-    public String railFenceDecipher(String encryptedText, int rails) {
-        // Pré-processamento da mensagem criptografada
-        encryptedText = encryptedText.toLowerCase().replaceAll("[^a-z]", "");
-
-        // Calcula o tamanho de cada trilho
-        int fenceSize = encryptedText.length() / rails;
-        // Calcula o tamanho dos trilhos que têm uma letra a mais
-        int extraLetters = encryptedText.length() % rails;
-
-        // Cria um array que serve como "cerca" ou limite, com o tamanho do trilho
-        int[] fence = new int[rails];
-        // Preenche o array com o tamanho dos trilhos
-        for (int i = 0; i < rails; i++) {
-            fence[i] = (i < extraLetters) ? (fenceSize + 1) : fenceSize;
-        }
-
-        // Mantém controle
-        int index = 0;
-        // Cria uma matriz que vai ser usada para decifrar a mensagem
-        char[][] matrix = new char[rails][fenceSize + 1];
-        // Percorre a matriz, preenchendo-a com as letras da mensagem criptografada
-        for (int i = 0; i < rails; i++) {
-            for (int j = 0; j < fence[i]; j++) {
-                matrix[i][j] = encryptedText.charAt(index++);
-            }
-        }
-
-        // Decifra a mensagem
-        StringBuilder decrypted = new StringBuilder();
-        // Mantém controle
-        index = 0;
-        // Percorre a matriz, adicionando as letras decifradas ao StringBuilder
-        for (int i = 0; i < fenceSize + 1; i++) {
-            for (int j = 0; j < rails; j++) {
-                if (i == fence[j]) {
-                    continue;
-                }
-                if (index >= encryptedText.length()){
-                    break;
-                }
-                decrypted.append(matrix[j][i]);
-                index++;
-            }
-        }
-
-        // Retorna a mensagem decifrada
         return decrypted.toString();
     }
 

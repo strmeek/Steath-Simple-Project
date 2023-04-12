@@ -13,19 +13,19 @@ public class MainController {
     }
 
     public String testingXorEncrypt(){
-        testingEncrypt = encrypt.xorCipher("i love sarah santos", "amor da minha vida");
+        testingEncrypt = encrypt.xorCipher("i love sarah santos", "amor");
         return testingEncrypt;
     }
     public String testingXorDecrypt(){
-        return decrypt.xorDecipher(testingEncrypt, "amor da minha vida");
+        return decrypt.xorDecipher(testingEncrypt, "amor");
     }
 
     public String testingRailFenceEncrypt(){
-        testingEncrypt = encrypt.railFenceCipher("i love Sarah Santos", 19);
+        testingEncrypt = encrypt.railFenceCipher("i love Sarah Santos", 3);
         return testingEncrypt;
     }
     public String testingRailFenceDecrypt(){
-        return decrypt.railFenceDecipher(testingEncrypt, 19);
+        return decrypt.railFenceDecipher(testingEncrypt, 3);
     }
 
     public String testingPolybiusSquareEncrypt(){

@@ -75,10 +75,12 @@ public class Encrypt {
     Método faz a encriptação baseado na Rail Fence Cipher que
     move cada letra da mensagem em zigue-zague de acordo com um numero especificado
     chamado de "trilho"
-    @param String encyptText, int rail
+    @param String encryptText, int rail
     @return String
      */
-    public String railFenceCipher(String encyptText, int rail){
+    public String railFenceCipher(String encryptText, int rail){
+        // Pré-processamento da mensagem original
+        encryptText.toLowerCase().replaceAll("[^a-z]", "");
         //Cria um Array que serve como "cerca" ou limite, com o tamanho do trilho
         StringBuilder[] fence = new StringBuilder[rail];
         //adiciona um objeto StringBuilder em cada espaço do Array
@@ -90,9 +92,9 @@ public class Encrypt {
         //mantem controle se o vetor muda de direção
         boolean down = true;
         //percorre cada letra da mensagem
-        for (int i = 0; i < encyptText.length(); i++) {
+        for (int i = 0; i < encryptText.length(); i++) {
             //atribui a letra correspondente a posição i
-            char letter = encyptText.charAt(i);
+            char letter = encryptText.charAt(i);
             //adiciona no array na posição especificada
             fence[railPosition].append(letter);
 
@@ -115,7 +117,7 @@ public class Encrypt {
         //percorre o Array de StringBuilders
         for (int i = 0; i < rail; i++) {
             //concatena em uma string somente
-            encrypted.append(fence[i]);
+            encrypted.append(fence[i].toString());
         }
         //retorna o texto encriptado
         return encrypted.toString();
@@ -129,37 +131,29 @@ public class Encrypt {
     @return String
      */
     public String polybiusSquareCipher(String encryptText, String key){
-        //grade 5x5
-        char[][] grid = new char[5][5];
-        //concatena a chave com o alfabeto
+        // Criação da matriz 5x5 com as letras do alfabeto e da chave
+        char[][] matrix = new char[5][5];
         String keyAlphabet = key + "abcdefghiklmnopqrstuvwxyz";
-        //mantem controle da posição atual
         int index = 0;
-        //percorre a matriz
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                //posiciona as letras no grid
-                grid[i][j] = keyAlphabet.charAt(index);
-                //atualiza o index;
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 5; col++) {
+                matrix[row][col] = keyAlphabet.charAt(index);
                 index++;
             }
         }
-        //cria o string builder da mensagem final
-        var encrypted = new StringBuilder();
-        //percorre o texto a ser encriptado
-        for (int i = 0; i < encryptText.length(); i++) {
-            char letter = encryptText.charAt(i);
-            //adiciona os espaços caso existam
-            if(letter == ' '){
-                encrypted.append(' ');
-                continue;
+
+        // Encriptação da mensagem
+        StringBuilder encrypted = new StringBuilder();
+        for (char letter : encryptText.toCharArray()) {
+            // Transforma o 'j' em 'i'
+            if (letter == 'j') {
+                letter = 'i';
             }
-            //para cada letra encontrada, retorna sua posição correspondente
-            int[] position = findPosition(grid, letter);
-            //adiciona na String final a posição especificada da letra
+            // Encontra a posição da letra na matriz
+            int[] position = findPosition(matrix, letter);
+            // Adiciona a posição da letra encriptada ao encrypted
             encrypted.append(position[0]).append(position[1]);
         }
-        //string final
         return encrypted.toString();
     }
     /*

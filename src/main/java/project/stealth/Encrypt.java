@@ -142,7 +142,7 @@ public class Encrypt {
     @param String encryptText, int[][] key
     @return String
      */
-    public static String hillCipher(String encryptText, int[][] key) {
+    public String hillCipher(String encryptText, int[][] key) {
         int keyLen = key.length; // dimensão da matriz chave
         int textLen = encryptText.length();
         int[][] encryptTextMatrix = new int[keyLen][textLen/keyLen]; // matriz do texto a ser encriptado(encryptText)

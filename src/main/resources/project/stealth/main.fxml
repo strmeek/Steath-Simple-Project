@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -58,14 +57,9 @@
                   <TextArea fx:id="txtAreaMessage" prefHeight="120.0" prefWidth="200.0" promptText="Put your message here" stylesheets="@style.css" />
                   <StackPane prefHeight="82.0" prefWidth="752.0">
                      <children>
-                        <VBox id="shiftoption-vbox" fx:id="shiftOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
-                           <children>
-                              <TextField id="txtfield-shiftoption" alignment="CENTER" maxWidth="200.0" promptText="Shift (insert a number)" stylesheets="@style.css" />
-                           </children>
-                        </VBox>
                         <VBox id="keyoption-vbox" fx:id="keyOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
                            <children>
-                              <TextField id="txtfield-keyoption" alignment="CENTER" maxWidth="200.0" promptText="Key (a password to the message)" stylesheets="@style.css" />
+                              <TextField id="txtfield-keyoption" fx:id="txtFieldKey" alignment="CENTER" maxWidth="200.0" promptText="Key (a password to the message)" stylesheets="@style.css" />
                            </children>
                         </VBox>
                         <VBox id="matrixoption-vbox" fx:id="matrixOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
@@ -85,10 +79,15 @@
                            </children>
                         </VBox>
                         <VBox id="empty-vbox" fx:id="emptyVbox" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css" />
+                        <VBox id="shiftoption-vbox" fx:id="shiftOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
+                           <children>
+                              <TextField id="txtfield-shiftoption" fx:id="txtFieldShift" alignment="CENTER" maxWidth="200.0" promptText="Shift (insert a number)" stylesheets="@style.css" />
+                           </children>
+                        </VBox>
                      </children>
                   </StackPane>
                   <Button id="button-getmessage" fx:id="buttonGetMessage" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@style.css" text="Get Message!" />
-                  <Label id="label-finalmessage" fx:id="labelFinalMessage" alignment="CENTER" prefHeight="120.0" prefWidth="600.0" stylesheets="@style.css" text="Message" />
+                  <TextField id="txtfield-finalmessage" fx:id="txtFieldFinalMessage" alignment="CENTER" maxWidth="-Infinity" prefHeight="120.0" prefWidth="600.0" styleClass="transparent" stylesheets="@style.css" />
                </children>
                <StackPane.margin>
                   <Insets bottom="12.0" left="24.0" right="24.0" top="12.0" />

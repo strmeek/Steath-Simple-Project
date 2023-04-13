@@ -166,7 +166,7 @@
 
 
 /*Final Message*/
-#label-finalmessage{
+#txtfield-finalmessage{
     -fx-font: normal normal 1.2em 'Questrial';
     -fx-text-fill: -BLACK;
     -fx-border-width: 3px;

@@ -68,7 +68,7 @@ public class Decrypt {
     @param String encryptedText, String key
     @return String
      */
-    public static String polybiusSquareDecipher(String encryptedText) {
+    public String polybiusSquareDecipher(String encryptedText) {
         // Matriz do alfabeto, incluindo a letra J
         char[][] polybiusSquare = {{'A', 'B', 'C', 'D', 'E'},
                 {'F', 'G', 'H', 'I', 'J'},

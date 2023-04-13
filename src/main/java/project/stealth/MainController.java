@@ -41,9 +41,6 @@ public class MainController implements Initializable {
     private VBox keyOptionVbox;
 
     @FXML
-    private Label labelFinalMessage;
-
-    @FXML
     private VBox mainVbox;
 
     @FXML
@@ -73,6 +70,16 @@ public class MainController implements Initializable {
     @FXML
     private TextArea txtAreaMessage;
 
+    @FXML
+    private TextField txtFieldKey;
+
+    @FXML
+    private TextField txtFieldShift;
+    @FXML
+    private TextField txtFieldFinalMessage;
+
+    private Encrypt encrypt = new Encrypt();
+    private Decrypt decrypt = new Decrypt();
     private String finalMessage;
     private Operation operation;
 
@@ -85,7 +92,7 @@ public class MainController implements Initializable {
         emptyVbox.toFront();
         //garante que a mensagem vai estar vazia
         finalMessage = " ";
-        labelFinalMessage.setText(finalMessage);
+        txtFieldFinalMessage.setText(finalMessage);
         //Desabilita os campos para que o usuário selecione a operação
         buttonGetMessage.setDisable(true);
         txtAreaMessage.setDisable(true);
@@ -112,11 +119,13 @@ public class MainController implements Initializable {
             public void handle(ActionEvent event) {
                 operation = Operation.ENCRYPT;
                 //para ficar mais claro pro usuário a operação que está sendo realizada
-                labelFinalMessage.setStyle("-fx-background-color: -ORANGE;");
+                txtFieldFinalMessage.setStyle("-fx-background-color: -ORANGE;");
                 //Habilita os campos para o usuário
                 buttonGetMessage.setDisable(false);
                 txtAreaMessage.setDisable(false);
                 comboBoxOptions.setDisable(false);
+                //garante que as opções que aparecerão serão as corretas
+                methodSelected();
             }
         });
 
@@ -128,11 +137,13 @@ public class MainController implements Initializable {
             public void handle(ActionEvent event) {
                 operation = Operation.DECRYPT;
                 //para ficar mais claro pro usuário a operação que está sendo realizada
-                labelFinalMessage.setStyle("-fx-background-color: -YELLOW;");
+                txtFieldFinalMessage.setStyle("-fx-background-color: -YELLOW;");
                 //Habilita os campos para o usuário
                 buttonGetMessage.setDisable(false);
                 txtAreaMessage.setDisable(false);
                 comboBoxOptions.setDisable(false);
+                //garante que as opções que aparecerão serão as corretas
+                methodSelected();
             }
         });
         comboBoxOptions.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Cipher>() {
@@ -158,5 +169,103 @@ public class MainController implements Initializable {
                 }
             }
         });
+        buttonGetMessage.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //Identifica qual foi o método escolhido
+                Cipher currentCipher = comboBoxOptions.getSelectionModel().getSelectedItem();
+                //verifica se a operação é de encriptação
+                if(operation.equals(Operation.ENCRYPT)){
+                    //Salva o texto do usuário
+                    String encryptText = txtAreaMessage.getText();
+                    if(currentCipher.equals(Cipher.CAESAR)){
+                        int shift = Integer.parseInt(txtFieldShift.getText());
+                        finalMessage = encrypt.caesarCipher(encryptText,shift);
+                    }
+                    else if(currentCipher.equals(Cipher.XOR)){
+                        String key = txtFieldKey.getText();
+                        finalMessage = encrypt.xorCipher(encryptText, key);
+                    }
+                    else if(currentCipher.equals(Cipher.POLYBIUSSQUARE)){
+                        finalMessage = encrypt.polybiusSquareCipher(encryptText);
+                    }
+                    else if(currentCipher.equals(Cipher.ONETIMEPAD)){
+                        finalMessage = encrypt.oneTimePadCipher(encryptText);
+                    }
+                    else if(currentCipher.equals(Cipher.HILL)){
+                        int [][] matrix = new int[2][2];
+                        matrix[0][0] = Integer.parseInt(matrixP1.getText());
+                        matrix[0][1] = Integer.parseInt(matrixP2.getText());
+                        matrix[1][0] = Integer.parseInt(matrixP3.getText());
+                        matrix[1][1] = Integer.parseInt(matrixP4.getText());
+
+                        finalMessage = encrypt.hillCipher(encryptText, matrix);
+                    }
+                    //Mostra o Resultado final
+                    txtFieldFinalMessage.setText(finalMessage);
+                    //Excessão para OneTimePad cipher
+                    if(currentCipher.equals(Cipher.ONETIMEPAD)){
+                        txtFieldFinalMessage.setText(finalMessage + "[" + "\nGuarde a Senha: " + encrypt.oneTimePadKey + "]");
+                    }
+                    System.out.println(finalMessage);
+                }
+                //Verifica se a operação é Decriptação
+                if (operation.equals(Operation.DECRYPT)){
+                    //Salva o texto do Usuário
+                    String encryptedText = txtAreaMessage.getText();
+                    if(currentCipher.equals(Cipher.CAESAR)){
+                        int shift = Integer.parseInt(txtFieldShift.getText());
+                        finalMessage = decrypt.caesarDecipher(encryptedText,shift);
+                    }
+                    else if(currentCipher.equals(Cipher.XOR)){
+                        String key = txtFieldKey.getText();
+                        finalMessage = decrypt.xorDecipher(encryptedText, key);
+                    }
+                    else if(currentCipher.equals(Cipher.POLYBIUSSQUARE)){
+                        finalMessage = decrypt.polybiusSquareDecipher(encryptedText);
+                    }
+                    else if(currentCipher.equals(Cipher.ONETIMEPAD)){
+                        String key = txtFieldKey.getText();
+                        finalMessage = decrypt.oneTimePadDecipher(encryptedText, key);
+                    }
+                    else if(currentCipher.equals(Cipher.HILL)){
+                        int [][] matrix = new int[2][2];
+                        matrix[0][0] = Integer.parseInt(matrixP1.getText());
+                        matrix[0][1] = Integer.parseInt(matrixP2.getText());
+                        matrix[1][0] = Integer.parseInt(matrixP3.getText());
+                        matrix[1][1] = Integer.parseInt(matrixP4.getText());
+
+                        finalMessage = decrypt.hillDecipher(encryptedText, matrix);
+                    }
+                    txtFieldFinalMessage.setText(finalMessage);
+                    System.out.println(finalMessage);
+                }
+            }
+        });
+    }
+    public void methodSelected(){
+        Cipher newValue = comboBoxOptions.getSelectionModel().getSelectedItem();
+
+        if(newValue == null){
+            emptyVbox.toFront();
+        }
+        else if(newValue.equals(Cipher.XOR)){
+            keyOptionVbox.toFront();
+        }
+        else if(newValue.equals(Cipher.POLYBIUSSQUARE)){
+            emptyVbox.toFront();
+        }
+        else if(newValue.equals(Cipher.ONETIMEPAD) && operation.equals(Operation.DECRYPT)){
+            keyOptionVbox.toFront();
+        }
+        else if(newValue.equals(Cipher.HILL)){
+            matrixOptionVbox.toFront();
+        }
+        else if(newValue.equals(Cipher.CAESAR)){
+            shiftOptionVbox.toFront();
+        }
+        else{
+            emptyVbox.toFront();
+        }
     }
 }

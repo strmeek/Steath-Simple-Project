@@ -40,6 +40,7 @@
     -RED: #880907; /*RED*/
     -DARK-RED: #6B0504; /*BLOOD RED*/
     -ORANGE: #EE7B30; /*PUMPKIN*/
+    -DARK-ORANGE: #B64600; /*DARK ORANGE*/
     -YELLOW: #D7B633; /*OLD GOLD*/
     -GREEN: #439523; /*FORREST GREEN*/
     -CYAN: #09ECE5; /*FLUORESCENT CYAN*/
@@ -68,7 +69,7 @@
 /*Background*/
 
 .background{
-    -fx-background-color: -DARK-BACKGROUND
+    -fx-background-color: -DARK-BACKGROUND;
 }
 
 .scroll-pane {
@@ -94,7 +95,40 @@
     -fx-alignment: center;
     -fx-background-color: -MEDIUM-BLUE;
     -fx-font: normal bolder 1.6em 'Sen';
-    -fx-text-fill: -MATTE-WHITE
+    -fx-text-fill: -MATTE-WHITE;
+}
+
+#button-encrypt:hover,
+#button-encrypt:focused{
+    -fx-background-color: -ORANGE;
+}
+
+#button-encrypt:pressed{
+    -fx-background-color: -BLACK;
+}
+
+#button-decrypt:hover,
+#button-decrypt:focused{
+    -fx-background-color: -YELLOW;
+}
+
+#button-decrypt:pressed{
+    -fx-background-color: -BLACK;
+}
+
+#button-darkmode:hover{
+    -fx-background-color: -PURPLEISH-BLUE;
+}
+#button-darkmode:pressed{
+    -fx-background-color: -BLACK;
+}
+
+#button-close:hover{
+    -fx-background-color: -PURPLEISH-BLUE;
+}
+
+#button-close:pressed{
+    -fx-background-color: -DARK-RED;
 }
 
 /*Vboxes*/
@@ -108,8 +142,33 @@
     -fx-background-color: -DARK-BACKGROUND;
 }
 
+/*Get Message Button*/
+#button-getmessage{
+    -fx-background-radius: 0px;
+    -fx-background-color: -GREEN;
+    -fx-border-width: 3px;
+    -fx-border-color: -MATTE-WHITE;
+    -fx-effect: dropshadow(gaussian, #000, 0, 10, 3px, 3px);
+    -fx-font: normal bolder 1.4em 'Sen';
+    -fx-text-fill: -MATTE-WHITE;
+    -fx-opacity: 0.8;
+}
+
+#button-getmessage:hover{
+    -fx-opacity: 1;
+    -fx-scale-X: 1.1;
+    -fx-scale-Y: 1.1;
+}
+
+#button-getmessage:pressed{
+    -fx-background-color: -MATTE-WHITE;
+}
+
+
 /*Final Message*/
 #label-finalmessage{
     -fx-font: normal normal 1.2em 'Questrial';
-    -fx-text-fill: -MATTE-WHITE
+    -fx-text-fill: -BLACK;
+    -fx-border-width: 3px;
+    -fx-border-color: -MATTE-WHITE;
 }

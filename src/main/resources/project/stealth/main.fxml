@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="background-vbox" fx:id="backgroundVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stealth.MainController">
+<VBox id="background-vbox" fx:id="backgroundVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="vbox-background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stealth.MainController">
    <children>
       <HBox id="menu-hbox" fx:id="menuHbox" prefHeight="100.0" prefWidth="200.0" stylesheets="@style.css">
          <children>
             <Button id="button-darkmode" fx:id="buttonDarkmode" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" styleClass="menu-button" stylesheets="@style.css">
                <graphic>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../icons/nightmode.png" />
                      </image>
@@ -42,7 +42,7 @@
                </graphic></Button>
             <Button id="button-close" fx:id="buttonClose" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" styleClass="menu-button" stylesheets="@style.css">
                <graphic>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../icons/Xicon.png" />
                      </image>
@@ -58,37 +58,37 @@
                   <TextArea fx:id="txtAreaMessage" prefHeight="120.0" prefWidth="200.0" promptText="Put your message here" stylesheets="@style.css" />
                   <StackPane prefHeight="82.0" prefWidth="752.0">
                      <children>
-                        <VBox id="shiftoption-vbox" fx:id="shiftOptionVbox" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
+                        <VBox id="shiftoption-vbox" fx:id="shiftOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
                            <children>
-                              <TextField id="txtfield-shiftoption" promptText="Shift" stylesheets="@style.css" />
+                              <TextField id="txtfield-shiftoption" alignment="CENTER" maxWidth="200.0" promptText="Shift (insert a number)" stylesheets="@style.css" />
                            </children>
                         </VBox>
-                        <VBox id="keyoption-vbox" fx:id="keyOptionVbox" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
+                        <VBox id="keyoption-vbox" fx:id="keyOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
                            <children>
-                              <TextField id="txtfield-keyoption" promptText="Chave (senha)" stylesheets="@style.css" />
+                              <TextField id="txtfield-keyoption" alignment="CENTER" maxWidth="200.0" promptText="Key (a password to the message)" stylesheets="@style.css" />
                            </children>
                         </VBox>
-                        <VBox id="matrixoption-vbox" fx:id="matrixOptionVbox" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
+                        <VBox id="matrixoption-vbox" fx:id="matrixOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
                            <children>
-                              <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="800.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="800.0" spacing="12.0">
                                  <children>
-                                    <TextField id="txtfield-matrixp1" fx:id="matrixP1" promptText="p1" stylesheets="@style.css" />
-                                    <TextField id="txtfield-matrixp2" fx:id="matrixP2" promptText="p2" stylesheets="@style.css" />
+                                    <TextField id="txtfield-matrixp1" fx:id="matrixP1" alignment="CENTER" promptText="insert a number" stylesheets="@style.css" />
+                                    <TextField id="txtfield-matrixp2" fx:id="matrixP2" alignment="CENTER" promptText="insert a number" stylesheets="@style.css" />
                                  </children>
                               </HBox>
-                              <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="800.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="800.0" spacing="12.0">
                                  <children>
-                                    <TextField id="txtfield-matrixp3" fx:id="matrixP3" promptText="p3" stylesheets="@style.css" />
-                                    <TextField id="txtfield-matrixp4" fx:id="matrixP4" promptText="p4" stylesheets="@style.css" />
+                                    <TextField id="txtfield-matrixp3" fx:id="matrixP3" alignment="CENTER" promptText="insert a number" stylesheets="@style.css" />
+                                    <TextField id="txtfield-matrixp4" fx:id="matrixP4" alignment="CENTER" promptText="insert a number" stylesheets="@style.css" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox id="empty-vbox" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css" />
+                        <VBox id="empty-vbox" fx:id="emptyVbox" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css" />
                      </children>
                   </StackPane>
-                  <Button id="button-getmessage" fx:id="buttonGetMessage" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" stylesheets="@style.css" text="Get Message!" />
-                  <Label id="label-finalmessage" fx:id="labelFinalMessage" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="600.0" stylesheets="@style.css" text="Message" />
+                  <Button id="button-getmessage" fx:id="buttonGetMessage" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@style.css" text="Get Message!" />
+                  <Label id="label-finalmessage" fx:id="labelFinalMessage" alignment="CENTER" prefHeight="120.0" prefWidth="600.0" stylesheets="@style.css" text="Message" />
                </children>
                <StackPane.margin>
                   <Insets bottom="12.0" left="24.0" right="24.0" top="12.0" />

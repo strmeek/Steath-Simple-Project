@@ -1,0 +1,115 @@
+/* IMPORT */
+/*'Bebas Neue'*/
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+/*'Arsenal'*/
+@import url('https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+/*'Cutive Mono'*/
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
+/*'Montserrat'*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*'Montserrat Alternates'*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*'Questrial'*/
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+/*'Sen'*/
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
+
+/* VARIABLES */
+*{
+    /* COLOR PALLETE */
+    /*Blue Pallete*/
+    -PURPLEISH-BLUE: #131862; /*Federal Blue*/
+    -DARK-BLUE: #041A40; /*Oxford Blue*/
+    -MEDIUM-BLUE: #0A3361; /*Berkeley Blue*/
+    -LIGHT-BLUE: #7EA0B7; /*Air superiority blue*/
+    -LIGHTER-BLUE: #87CEEB; /*Sky Blue*/
+
+    /*Whites*/
+    -WHITE: #FFFAFB; /*Snow White*/
+    -MATTE-WHITE: #F4F4F9; /*Ghost White*/
+
+    /*Blacks and Grays*/
+    -BLACK: #121113; /*Night*/
+    -DARK-GRAY: #3F3F3F; /*Onyx*/
+    -GRAY: #575757; /*Davys Gray*/
+    -CADET-GRAY: #A7B1BD; /*CADET GRAY*/
+    -LIGHT-GRAY: #C9C9C9; /*Silver*/
+    -LIGHTER-GRAY: #EAEAEA; /*Platinum*/
+
+    /*Hot Colors or Highlight Colors*/
+    -RED: #880907; /*RED*/
+    -DARK-RED: #6B0504; /*BLOOD RED*/
+    -ORANGE: #EE7B30; /*PUMPKIN*/
+    -YELLOW: #D7B633; /*OLD GOLD*/
+    -GREEN: #439523; /*FORREST GREEN*/
+    -CYAN: #09ECE5; /*FLUORESCENT CYAN*/
+    -MAGENTA: #8F008F; /*DARK MAGENTA*/
+
+    /*Color Variables*/
+    /*Background*/
+    -DARK-BACKGROUND: -DARK-BLUE;
+}
+
+/*UTILITY CLASSES*/
+
+.transparent{
+    -fx-background-color: rgba(0 ,0 ,0 ,0);
+}
+
+.alignment-center{
+    -fx-alignment: center;
+    -fx-content-display: center;
+}
+
+.alignment-center-left{
+    -fx-alignment: center-left;
+}
+
+/*Background*/
+
+.background{
+    -fx-background-color: -DARK-BACKGROUND
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/*MENU*/
+.menu-button{
+    -fx-background-radius: 0px;
+    -fx-alignment: center;
+    -fx-background-color: -MEDIUM-BLUE;
+    -fx-font: normal bolder 1.6em 'Sen';
+    -fx-text-fill: -MATTE-WHITE
+}
+
+/*Vboxes*/
+
+#main-vbox{
+    -fx-alignment: center;
+    -fx-spacing: 12px;
+}
+
+.vbox-background{
+    -fx-background-color: -DARK-BACKGROUND;
+}
+
+/*Final Message*/
+#label-finalmessage{
+    -fx-font: normal normal 1.2em 'Questrial';
+    -fx-text-fill: -MATTE-WHITE
+}

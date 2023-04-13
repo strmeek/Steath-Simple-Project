@@ -78,18 +78,18 @@ public class Decrypt {
                 {'Z', ' ', '.', ',', ';'}};
 
         // Cria um StringBuilder para armazenar a mensagem decifrada
-        StringBuilder plaintext = new StringBuilder();
+        StringBuilder revealedText = new StringBuilder();
 
         // Itera por cada par de números na mensagem cifrada
         for (int i = 0; i < encryptedText.length(); i += 2) {
             int row = Character.getNumericValue(encryptedText.charAt(i)) - 1;
             int col = Character.getNumericValue(encryptedText.charAt(i+1)) - 1;
             // Adiciona a letra correspondente à posição decifrada à mensagem decifrada
-            plaintext.append(polybiusSquare[row][col]);
+            revealedText.append(polybiusSquare[row][col]);
         }
 
         // Retorna a mensagem decifrada
-        return plaintext.toString();
+        return revealedText.toString();
     }
 
     /*

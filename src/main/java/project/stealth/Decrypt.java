@@ -1,7 +1,7 @@
 package project.stealth;
 
 public class Decrypt {
-    /*
+    /**
     Esta classe contém todos os métodos que implementam os algoritmos de
     Decriptação, nesse programa contém os seguintes:
     1- Caesar cipher
@@ -11,10 +11,11 @@ public class Decrypt {
     5- Hill Cipher
      */
 
-    /*
+    /**
     Caesar Cipher
     Método faz a decriptação da caesar cipher
-    @param String encryptedText, int shift
+    @param encryptedText
+    @param shift
     @return String
      */
     public String caesarDecipher(String encryptedText, int shift){
@@ -34,11 +35,12 @@ public class Decrypt {
         return decrypted.toString();
     }
 
-    /*
+    /**
     Decrypt XOR Cipher
     Método faz Decriptação da XOR cipher (é o mesmo método da classe encrypt, pois
     esse algoritmo basta ser rodado denovo com a chave certa, está aqui com fins de organização)
-    @param String encryptedText, String key
+    @param encryptedText
+    @param key
     @return String
     */
     public String xorDecipher(String encryptedText, String key){
@@ -62,10 +64,10 @@ public class Decrypt {
         return decrypted.toString();
     }
 
-    /*
+    /**
     Polybius Square Cipher
     Método responsavel por decifrar mensagens criptografas por Polybius Square Cipher
-    @param String encryptedText, String key
+    @param encryptedText
     @return String
      */
     public String polybiusSquareDecipher(String encryptedText) {
@@ -92,10 +94,11 @@ public class Decrypt {
         return revealedText.toString();
     }
 
-    /*
+    /**
     Decrypt One Time Pad Cipher
     Método é responsável por fazer a Decriptação da One Time Pad Cipher
-    @param String encryptedText, String key
+    @param encryptedText
+    @param  key
     @return String
      */
     public String oneTimePadDecipher(String encryptedText, String key){
@@ -124,8 +127,10 @@ public class Decrypt {
      * @param key
      * @return String
      */
-    /*Para ter sucesso na decriptação, o texto deve estar em CAPSLOCK e a
-    * matriz oferecida deve ser a mesma da encriptação*/
+    /*
+    * Para ter sucesso na decriptação, o texto deve estar em CAPSLOCK e a
+    * matriz oferecida deve ser a mesma da encriptação
+    */
     public String hillDecipher(String encryptedText, int[][] key) {
         // arredonda o tamanho do texto, se for necessário
         if (encryptedText.length() % 2 != 0) {

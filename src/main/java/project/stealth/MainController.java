@@ -102,6 +102,7 @@ public class MainController implements Initializable {
         listCiphers.addAll(Cipher.CAESAR,Cipher.XOR,Cipher.ONETIMEPAD,Cipher.POLYBIUSSQUARE,Cipher.HILL);
         comboBoxOptions.setItems(listCiphers);
 
+
         /*
         Botão de fechar
          */

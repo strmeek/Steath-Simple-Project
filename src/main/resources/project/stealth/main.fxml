@@ -62,6 +62,12 @@
                               <TextField id="txtfield-keyoption" fx:id="txtFieldKey" alignment="CENTER" maxWidth="200.0" promptText="Key (a password to the message)" stylesheets="@style.css" />
                            </children>
                         </VBox>
+                        <VBox id="empty-vbox" fx:id="emptyVbox" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css" />
+                        <VBox id="shiftoption-vbox" fx:id="shiftOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
+                           <children>
+                              <TextField id="txtfield-shiftoption" fx:id="txtFieldShift" alignment="CENTER" maxWidth="200.0" promptText="Shift (insert a number)" stylesheets="@style.css" />
+                           </children>
+                        </VBox>
                         <VBox id="matrixoption-vbox" fx:id="matrixOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
                            <children>
                               <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="800.0" spacing="12.0">
@@ -76,12 +82,6 @@
                                     <TextField id="txtfield-matrixp4" fx:id="matrixP4" alignment="CENTER" promptText="insert a number" stylesheets="@style.css" />
                                  </children>
                               </HBox>
-                           </children>
-                        </VBox>
-                        <VBox id="empty-vbox" fx:id="emptyVbox" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css" />
-                        <VBox id="shiftoption-vbox" fx:id="shiftOptionVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vbox-background" stylesheets="@style.css">
-                           <children>
-                              <TextField id="txtfield-shiftoption" fx:id="txtFieldShift" alignment="CENTER" maxWidth="200.0" promptText="Shift (insert a number)" stylesheets="@style.css" />
                            </children>
                         </VBox>
                      </children>

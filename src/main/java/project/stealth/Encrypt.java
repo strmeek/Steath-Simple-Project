@@ -77,7 +77,7 @@ public class Encrypt {
     @param String encyptText, String key
     @return String
      */
-    public String polybiusSquareCipher(String encryptText, String key){
+    public String polybiusSquareCipher(String encryptText){
         // Matriz do alfabeto, incluindo a letra J
         char[][] polybiusSquare = {{'A', 'B', 'C', 'D', 'E'},
                 {'F', 'G', 'H', 'I', 'J'},

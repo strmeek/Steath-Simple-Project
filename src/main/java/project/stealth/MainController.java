@@ -1,54 +1,6 @@
 package project.stealth;
 
+import javafx.scene.control.ComboBox;
+
 public class MainController {
-    public String testingEncrypt;
-    public Encrypt encrypt = new Encrypt();
-    public Decrypt decrypt = new Decrypt();
-    public String testingCaesarEncrypt(){
-        testingEncrypt = encrypt.caesarCipher("i love sarah santos", 7);
-        return testingEncrypt;
-    }
-    public String testingCaesarDecrypt(){
-        return decrypt.caesarDecipher(testingEncrypt, 7);
-    }
-
-    public String testingXorEncrypt(){
-        testingEncrypt = encrypt.xorCipher("i love sarah santos", "amor");
-        return testingEncrypt;
-    }
-    public String testingXorDecrypt(){
-        return decrypt.xorDecipher(testingEncrypt, "amor");
-    }
-
-    public String testingRailFenceEncrypt(){
-        testingEncrypt = encrypt.railFenceCipher("i love sarah santos", 3);
-        return testingEncrypt;
-    }
-    public String testingRailFenceDecrypt(){
-        return decrypt.railFenceDecipher(testingEncrypt, 3);
-    }
-
-    public String testingPolybiusSquareEncrypt(){
-        testingEncrypt = encrypt.polybiusSquareCipher("i love sarah santos", "beijos");
-        return testingEncrypt;
-    }
-    public String testingPolybiusSquareDecrypt(){
-        return decrypt.polybiusSquareDecipher(testingEncrypt, "beijos");
-    }
-    public String testingOneTimePadEncrypt(){
-        testingEncrypt = encrypt.oneTimePadCipher("i love my princess");
-        return testingEncrypt;
-    }
-    public String testingOneTimePadDecrypt(){
-        return decrypt.oneTimePadDecipher(testingEncrypt, encrypt.oneTimePadKey);
-    }
-    public String testingHillEncrypt(){
-        int[][] key = new int[][]{{2, 3},{3, 4}};
-        testingEncrypt = encrypt.hillCipher("SARASANTOSRIBEIROO", key);
-        return testingEncrypt;
-    }
-    public String testingHillDecrypt(){
-        int[][] key = new int[][] {{2, 3}, {3, 4}};
-        return decrypt.hillDecipher(testingEncrypt, key);
-    }
 }

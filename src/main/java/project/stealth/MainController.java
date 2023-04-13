@@ -206,6 +206,7 @@ public class MainController implements Initializable {
                     //Excessão para OneTimePad cipher
                     if(currentCipher.equals(Cipher.ONETIMEPAD)){
                         txtFieldFinalMessage.setText(finalMessage + "[" + "\nGuarde a Senha: " + encrypt.oneTimePadKey + "]");
+                        System.out.println(encrypt.oneTimePadKey);
                     }
                     System.out.println(finalMessage);
                 }

@@ -1,7 +1,7 @@
 package project.stealth;
 
 public class Decrypt {
-        /*
+    /*
     Esta classe contém todos os métodos que implementam os algoritmos de
     Decriptação, nesse programa contém os seguintes:
     1- Caesar cipher
@@ -117,12 +117,15 @@ public class Decrypt {
         return decrypted.toString();
     }
 
-    /*
-    Decrypt Hill Cipher
-    Método faz a Decriptação de Hill Ciphers
-    @param String encryptedText, int[][] key
-    @return String
+    /**
+     * Decrypt Hill Cipher
+     * Método faz a Decriptação de Hill Ciphers
+     * @param encryptedText
+     * @param key
+     * @return String
      */
+    /*Para ter sucesso na decriptação, o texto deve estar em CAPSLOCK e a
+    * matriz oferecida deve ser a mesma da encriptação*/
     public String hillDecipher(String encryptedText, int[][] key) {
         // arredonda o tamanho do texto, se for necessário
         if (encryptedText.length() % 2 != 0) {

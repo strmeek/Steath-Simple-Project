@@ -142,6 +142,10 @@ public class Encrypt {
     @param String encryptText, int[][] key
     @return String
      */
+    /*
+    Para que a encriptação tenha sucesso, deve-se entregar um texto em CAPSLOCK
+    e uma matriz que contenha inversa
+     */
     public String hillCipher(String encryptText, int[][] key) {
         int keyLen = key.length; // dimensão da matriz chave
         int textLen = encryptText.length();

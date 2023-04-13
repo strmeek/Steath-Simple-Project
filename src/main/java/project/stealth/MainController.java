@@ -102,13 +102,13 @@ public class MainController implements Initializable {
         listCiphers.addAll(Cipher.CAESAR,Cipher.XOR,Cipher.ONETIMEPAD,Cipher.POLYBIUSSQUARE,Cipher.HILL);
         comboBoxOptions.setItems(listCiphers);
 
-
         /*
         Botão de fechar
          */
         buttonClose.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //fecha a aba do app
                 System.exit(0);
             }
         });
@@ -118,6 +118,7 @@ public class MainController implements Initializable {
         buttonEncrypt.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //identifica que o usuário quer encryptar uma mensagem
                 operation = Operation.ENCRYPT;
                 //para ficar mais claro pro usuário a operação que está sendo realizada
                 txtFieldFinalMessage.setStyle("-fx-background-color: -ORANGE;");
@@ -136,6 +137,7 @@ public class MainController implements Initializable {
         buttonDecrypt.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //identifica que o usuário quer decriptar uma mensagem
                 operation = Operation.DECRYPT;
                 //para ficar mais claro pro usuário a operação que está sendo realizada
                 txtFieldFinalMessage.setStyle("-fx-background-color: -YELLOW;");
@@ -151,18 +153,22 @@ public class MainController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Cipher> observableValue, Cipher oldValue, Cipher newValue) {
                 if(newValue.equals(Cipher.CAESAR)){
+                    //mostra os campos necessários para a Caesar Cipher
                     shiftOptionVbox.toFront();
                 }
                 else if(newValue.equals(Cipher.XOR)){
+                    //mostra os campos necessários para a XOR Cipher
                     keyOptionVbox.toFront();
                 }
                 else if(newValue.equals(Cipher.POLYBIUSSQUARE)){
                     emptyVbox.toFront();
                 }
                 else if(newValue.equals(Cipher.ONETIMEPAD) && operation.equals(Operation.DECRYPT)){
+                    //mostra os campos necessários para a One Time Pad Decipher
                     keyOptionVbox.toFront();
                 }
                 else if(newValue.equals(Cipher.HILL)){
+                    //mostra os campos necessários para a Hill cipher
                     matrixOptionVbox.toFront();
                 }
                 else{
@@ -180,26 +186,33 @@ public class MainController implements Initializable {
                     //Salva o texto do usuário
                     String encryptText = txtAreaMessage.getText();
                     if(currentCipher.equals(Cipher.CAESAR)){
+                        //salva o shift escolhido pelo usuário
                         int shift = Integer.parseInt(txtFieldShift.getText());
+                        //faz a encriptação do texto com as informações
                         finalMessage = encrypt.caesarCipher(encryptText,shift);
                     }
                     else if(currentCipher.equals(Cipher.XOR)){
+                        //salva a chave digitada pelo usuário
                         String key = txtFieldKey.getText();
+                        //faz a encriptação do texto com as informações
                         finalMessage = encrypt.xorCipher(encryptText, key);
                     }
                     else if(currentCipher.equals(Cipher.POLYBIUSSQUARE)){
+                        //faz a encriptação do texto com as informações
                         finalMessage = encrypt.polybiusSquareCipher(encryptText);
                     }
                     else if(currentCipher.equals(Cipher.ONETIMEPAD)){
+                        //faz a encriptação do texto com as informações
                         finalMessage = encrypt.oneTimePadCipher(encryptText);
                     }
                     else if(currentCipher.equals(Cipher.HILL)){
+                        //produz uma matriz
                         int [][] matrix = new int[2][2];
                         matrix[0][0] = Integer.parseInt(matrixP1.getText());
                         matrix[0][1] = Integer.parseInt(matrixP2.getText());
                         matrix[1][0] = Integer.parseInt(matrixP3.getText());
                         matrix[1][1] = Integer.parseInt(matrixP4.getText());
-
+                        //faz a encriptação do texto com as informações
                         finalMessage = encrypt.hillCipher(encryptText, matrix);
                     }
                     //Mostra o Resultado final
